@@ -1,0 +1,48 @@
+﻿@model DesafioFortes.MVC.ViewModels.ReceitaViewModel
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h4>Detalhes da Receita</h4>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Valor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Valor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Data)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Data)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ReceitaId }, new { @class = "btn btn-primary" })
+</p>

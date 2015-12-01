@@ -1,0 +1,86 @@
+﻿@model IEnumerable<DesafioFortes.MVC.ViewModels.DespesaViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Despesas</h2>
+
+<p>
+    @Html.ActionLink("Adicionar", "Create")
+</p>
+<div class="row margin-botton-10">
+    @using (Html.BeginForm("Index", "Despesa", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        <div class="col-md-offset-8 col-md-1">
+            @Html.Label("Categoria", new { @for = "category", @class = "col-lg-2 control-label" })
+        </div>
+        <div class="col-md-2">
+            @Html.DropDownList("id", (IEnumerable<SelectListItem>)ViewBag.Categorias, "Mostrar Todas", new { @id = "category", @class = "form-control" })
+        </div>
+        <div class="col-md-1">
+            <input type="submit" value="Filtrar" class="btn btn-primary btn-sm" />
+        </div>
+    }
+</div>
+
+<div class="table-responsive">
+    <table id="despesas" class="table col-sm-12 table-bordered table-striped table-condensed">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Valor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Data)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Observacao)
+            </th>
+            <th>Opções</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Valor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Categoria.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Data)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Observacao)
+                </td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = item.DespesaId })" class="btn btn-primary btn-xs">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        Editar
+                    </a>
+                    <button class="btn btn-primary delete btn-xs" data-id="@item.DespesaId"><i class="glyphicon glyphicon-trash"></i> Remover</button>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $(".delete").click(function () {
+                var id = $(this).attr("data-id");
+                $("#modal").load("/Despesa/Delete?id=" + id, function () {
+                    $("#modal").modal();
+                });
+            });
+        });
+    </script>
+}
